@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://resume-ai-app-5n2j.onrender.com",
 });
 
 API.interceptors.request.use((config) => {
