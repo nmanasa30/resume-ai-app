@@ -1,0 +1,49 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/api";
+
+export default function Login() {
+  const [form, setForm]       = useState({ email: "", password: "" });
+  const [error, setError]     = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const submit = async (e) => {
+    e.preventDefault(); setError(""); setLoading(true);
+    try {
+      const res = await loginUser(form);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed.");
+    } finally { setLoading(false); }
+  };
+  return (
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-logo">
+          <div className="auth-logo-icon">📄</div>
+          <span className="auth-logo-text">Resume AI</span>
+        </div>
+        <h1 className="auth-title">Welcome back</h1>
+        <p className="auth-sub">Sign in to continue building your perfect resume</p>
+        <form onSubmit={submit}>
+          <div className="field-group">
+            <label className="field-label">Email address</label>
+            <input className="field-input" type="email" name="email" placeholder="you@email.com" value={form.email} onChange={handle} required />
+          </div>
+          <div className="field-group">
+            <label className="field-label">Password</label>
+            <input className="field-input" type="password" name="password" placeholder="Your password" value={form.password} onChange={handle} required />
+          </div>
+          {error && <p className="error-msg">⚠ {error}</p>}
+          <button type="submit" className="btn btn-primary" style={{ width:"100%", marginTop:"1.25rem", justifyContent:"center", padding:"12px" }} disabled={loading}>
+            {loading ? "Signing in…" : "Sign In →"}
+          </button>
+        </form>
+        <p className="auth-footer">Don't have an account? <Link to="/register" className="auth-link">Create one free →</Link></p>
+      </div>
+    </div>
+  );
+}
