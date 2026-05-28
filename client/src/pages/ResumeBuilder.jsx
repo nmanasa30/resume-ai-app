@@ -30,7 +30,7 @@ export default function ResumeBuilder() {
     setAiLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/ai/summary", {
+      const res = await fetch("https://resume-ai-app-5n2j.onrender.com/api/ai/summary",{
         method:"POST",
         headers:{ "Content-Type":"application/json", "Authorization":`Bearer ${token}` },
         body: JSON.stringify({ name:form.name, skills:form.skills, education:form.education, experience:form.experience }),
