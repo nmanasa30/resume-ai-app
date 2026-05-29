@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://resume-ai-app-5n2j.onrender.com",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
 });
 
 API.interceptors.request.use((config) => {
@@ -10,14 +10,13 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export const registerUser = (data) => API.post("/auth/register", data);
-export const loginUser    = (data) => API.post("/auth/login", data);
-export const getMe        = ()     => API.get("/auth/me");
-
+export const registerUser  = (data)     => API.post("/auth/register", data);
+export const loginUser     = (data)     => API.post("/auth/login", data);
+export const getMe         = ()         => API.get("/auth/me");
 export const getAllResumes  = ()         => API.get("/resume/all");
-export const getResume      = (id)       => API.get(`/resume/${id}`);
-export const createResume   = (data)     => API.post("/resume", data);
-export const updateResume   = (id, data) => API.put(`/resume/${id}`, data);
-export const deleteResume   = (id)       => API.delete(`/resume/${id}`);
+export const getResume     = (id)       => API.get(`/resume/${id}`);
+export const createResume  = (data)     => API.post("/resume", data);
+export const updateResume  = (id, data) => API.put(`/resume/${id}`, data);
+export const deleteResume  = (id)       => API.delete(`/resume/${id}`);
 
 export default API;
