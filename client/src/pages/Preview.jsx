@@ -158,7 +158,7 @@ export default function Preview() {
 
             {/* QR Code */}
             <div style={{ background:"#F7F5F0", borderRadius:12, padding:"1rem", marginBottom:"1rem", display:"inline-block" }}>
-              <img src={qrUrl} alt="UPI QR Code" width={180} height={180} style={{ display:"block" }} />
+              <img src="/phonepe-qr.jpg" alt="PhonePe QR Code" width={200} height={200} style={{ display:"block", borderRadius:8 }} />
             </div>
 
             {/* UPI ID */}
