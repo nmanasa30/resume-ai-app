@@ -191,12 +191,16 @@ export default function Preview() {
             />
 
             <p style={{ fontSize:11, color:"#6B6B8A", marginBottom:"1.25rem" }}>
-              💡 Find UTR in PhonePe → History → Transaction Details
+              💡 Find UTR in PhonePe → History → tap transaction → UTR Number
             </p>
+
+            <div style={{ background:"#FFF3CD", borderRadius:8, padding:"10px", marginBottom:"1rem", fontSize:12, color:"#856404" }}>
+              ⚠️ Wrong UTR = no download. We verify every payment manually.
+            </div>
 
             <div style={{ display:"flex", gap:8 }}>
               <button onClick={() => setShowPayModal(false)} style={{ flex:1, padding:"11px", border:"1.5px solid #E2DDD6", borderRadius:8, background:"transparent", cursor:"pointer", fontSize:13, fontWeight:600 }}>Cancel</button>
-              <button onClick={verifyAndDownload} disabled={verifying} style={{ flex:2, padding:"11px", border:"none", borderRadius:8, background:"linear-gradient(135deg,#2D7A4F,#3D9A6F)", color:"#fff", cursor:"pointer", fontSize:13, fontWeight:700 }}>
+              <button onClick={verifyAndDownload} disabled={verifying || utrNumber.trim().length < 6} style={{ flex:2, padding:"11px", border:"none", borderRadius:8, background: utrNumber.trim().length < 6 ? "#ccc" : "linear-gradient(135deg,#2D7A4F,#3D9A6F)", color:"#fff", cursor: utrNumber.trim().length < 6 ? "not-allowed" : "pointer", fontSize:13, fontWeight:700 }}>
                 {verifying ? "Verifying…" : "✅ Verify & Download"}
               </button>
             </div>
