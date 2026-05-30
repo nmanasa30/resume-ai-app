@@ -94,8 +94,8 @@ export default function Preview() {
   const skillTags = resume.skills?.split(",").map((s) => s.trim()).filter(Boolean) || [];
 
   // QR code URL using Google Charts API
-  const upiString = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${encodeURIComponent("Resume Download")}`;
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
+  const upiString = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=ResumeDownload`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&bgcolor=ffffff&color=000000&qzone=2&data=${encodeURIComponent(upiString)}`;
 
   return (
     <div style={{ minHeight:"100vh", background:"#F7F5F0" }}>
@@ -170,6 +170,16 @@ export default function Preview() {
             <p style={{ fontSize:12, color:"#6B6B8A", marginBottom:"0.75rem" }}>
               After paying, enter your <strong>UTR / Transaction ID</strong> below:
             </p>
+
+            {/* Direct pay buttons */}
+            <div style={{ display:"flex", gap:8, marginBottom:"1rem" }}>
+              <a href={`phonepe://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=ResumeDownload`} style={{ flex:1, padding:"10px", background:"#5f259f", color:"#fff", borderRadius:8, textDecoration:"none", fontSize:13, fontWeight:700, textAlign:"center" }}>
+                📱 Open PhonePe
+              </a>
+              <a href={`gpay://upi/pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=ResumeDownload`} style={{ flex:1, padding:"10px", background:"#1a73e8", color:"#fff", borderRadius:8, textDecoration:"none", fontSize:13, fontWeight:700, textAlign:"center" }}>
+                💳 Open GPay
+              </a>
+            </div>
 
             {/* UTR Input */}
             <input
