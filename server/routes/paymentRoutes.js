@@ -45,3 +45,14 @@ router.post("/verify", authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
+
+// Save UTR for manual verification
+router.post("/utr", authMiddleware, async (req, res) => {
+  try {
+    const { utr, resumeId, amount } = req.body;
+    console.log(`💰 Payment received - UTR: ${utr}, Resume: ${resumeId}, Amount: ₹${amount}, User: ${req.user.email}`);
+    res.json({ success: true, message: "UTR saved." });
+  } catch (err) {
+    res.status(500).json({ message: "Error saving UTR." });
+  }
+});
